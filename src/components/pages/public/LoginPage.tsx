@@ -95,7 +95,7 @@ export default function LoginPage() {
                   disabled={
                     !userCredentials.username || !userCredentials.password
                   }
-                  className="w-full"
+                  className="w-full bg-amber-300 rounded-lg hover:bg-amber-400 transition-colors ease-in-out "
                 >
                   Login as user
                 </Button>
