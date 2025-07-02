@@ -36,6 +36,8 @@ import {
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { useAppSelector } from "@/redux/hook";
+import { RootState } from "@/redux/store";
 
 const FormSchema = z
   .object({
@@ -92,19 +94,19 @@ const FormSchema = z
   );
 
 export default function FormPage() {
-  const today = new Date().toISOString().split("T")[0];
+  const { username } = useAppSelector((state: RootState) => state.auth);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       customerName: "",
-      customerId: "",
+      customerId: username,
       dateOfSubmission: undefined,
-      typeOfSubmission: undefined,
+      typeOfSubmission: "Cash",
       bankName: "",
       bankBranch: "",
-      amountPaid: "",
-      penaltyAmount: "",
+      amountPaid: "0",
+      penaltyAmount: "0",
     },
   });
 
@@ -159,10 +161,14 @@ export default function FormPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-lg font-semibold">
-                        Customer ID
+                        Customer ID / User ID
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter customer ID" {...field} />
+                        <Input
+                          placeholder="Enter customer ID"
+                          {...field}
+                          disabled
+                        />
                       </FormControl>
                       <FormMessage className="text-left" />
                     </FormItem>
