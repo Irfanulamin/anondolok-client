@@ -1,6 +1,8 @@
 "use client";
+import { logOut } from "@/redux/feature/authSlice";
 import Link from "next/link";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const navLinks = [
   { to: "/dashboard", label: "Dashboard" },
@@ -10,6 +12,12 @@ const navLinks = [
 
 const DashboardNavbar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    localStorage.removeItem("token");
+  };
 
   return (
     <nav className="bg-white border-b border-gray-200 py-3">
@@ -41,6 +49,15 @@ const DashboardNavbar: React.FC = () => {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={() => {
+              handleLogout();
+              setOpen(false);
+            }}
+            className="block px-4 py-3 md:p-0 text-lg text-red-600 font-medium hover:text-red-800 transition-colors"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </nav>

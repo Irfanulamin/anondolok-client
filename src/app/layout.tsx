@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={archivo.className}>
         <Providers>{children}</Providers>
-        <Toaster />
+        <Toaster richColors />
       </body>
     </html>
   );

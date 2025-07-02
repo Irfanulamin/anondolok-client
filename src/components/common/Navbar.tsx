@@ -1,17 +1,25 @@
 "use client";
-import { useAppSelector } from "@/redux/hook";
+import { logOut } from "@/redux/feature/authSlice";
+import { useAppSelector, useAppDispatch } from "@/redux/hook";
 import { RootState } from "@/redux/store";
 import Link from "next/link";
 import React from "react";
 
 const UserNavbar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
+  const dispatch = useAppDispatch();
   const { username } = useAppSelector((state: RootState) => state.auth);
+
   const navLinks = [
     { to: "/form", label: "Submit A Form" },
     { to: `/history/${username}`, label: "Payment History" },
     { to: "/about-us", label: "About Us" },
   ];
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    localStorage.removeItem("token");
+  };
 
   return (
     <nav className="bg-white border-b border-gray-200 py-3">
@@ -43,6 +51,15 @@ const UserNavbar: React.FC = () => {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={() => {
+              handleLogout();
+              setOpen(false);
+            }}
+            className="block px-4 py-3 md:p-0 text-lg text-red-600 font-medium hover:text-red-800 transition-colors"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </nav>
