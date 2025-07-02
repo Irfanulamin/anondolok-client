@@ -1,6 +1,5 @@
-"use client";
+import DashboardNavbar from "@/components/common/Dashboard";
 import React from "react";
-import UserNavbar from "@/components/common/Navbar";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,7 +8,7 @@ interface LayoutProps {
 const layout = ({ children }: LayoutProps) => {
   return (
     <div>
-      <UserNavbar />
+      <DashboardNavbar />
       <div className="h-full w-full max-w-[1920px] mx-auto px-2 md:px-12  lg:px-24 min-h-screen">
         {children}
       </div>

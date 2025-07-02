@@ -1,17 +1,15 @@
 "use client";
-import { useAppSelector } from "@/redux/hook";
-import { RootState } from "@/redux/store";
 import Link from "next/link";
 import React from "react";
 
-const UserNavbar: React.FC = () => {
+const navLinks = [
+  { to: "/dashboard", label: "Dashboard" },
+  { to: "/admin", label: "Admin Panel" },
+  { to: "/register", label: "Register User" },
+];
+
+const DashboardNavbar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
-  const { username } = useAppSelector((state: RootState) => state.auth);
-  const navLinks = [
-    { to: "/form", label: "Submit A Form" },
-    { to: `/history/${username}`, label: "Payment History" },
-    { to: "/about-us", label: "About Us" },
-  ];
 
   return (
     <nav className="bg-white border-b border-gray-200 py-3">
@@ -49,4 +47,4 @@ const UserNavbar: React.FC = () => {
   );
 };
 
-export default UserNavbar;
+export default DashboardNavbar;
